@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天顺乐邦 - 硅胶及工艺品材料供应商</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --warm-gray: #f5f2ed;
+    --stone: #e8e3db;
+    --clay: #c4b9a8;
+    --bronze: #8b7355;
+    --deep-blue: #1e3a5f;
+    --accent: #c87941;
+    --white: #ffffff;
+    --radius: 6px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .nav.scrolled { border-bottom-color: var(--stone); background: rgba(255,255,255,0.95); }
+  .nav-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--deep-blue);
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 40px 80px;
+    background:
+      radial-gradient(ellipse at 70% 40%, rgba(200,121,65,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 60%, rgba(30,58,95,0.06) 0%, transparent 60%),
+      var(--warm-gray);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30Z' fill='none' stroke='%23c4b9a8' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+  .hero-content {
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,121,65,0.1);
+    padding: 6px 16px;
+    border-radius: 99px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--deep-blue);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero p {
+    font-size: 1.15rem;
+    color: #555;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--deep-blue);
+    color: var(--white);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: #152b47; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--deep-blue);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--deep-blue);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { background: var(--deep-blue); color: var(--white); }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 100px 40px; }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--deep-blue);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: #666;
+    max-width: 560px;
+    line-height: 1.8;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ─── ABOUT ─── */
+  .about {
+    background: var(--white);
+    position: relative;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .about-visual {
+    background: var(--warm-gray);
+    border-radius: 12px;
+    padding: 60px 50px;
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-icon-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .about-icon-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    min-width: 100px;
+    flex: 1;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .about-icon-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .about-icon-card .icon { font-size: 2rem; margin-bottom: 8px; }
+  .about-icon-card .label { font-size: 0.85rem; font-weight: 600; color: var(--deep-blue); }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+  .feature-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .feature-list .check {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    background: rgba(200,121,65,0.12);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+  .feature-list h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+  .feature-list p { font-size: 0.88rem; color: #666; }
+
+  /* ─── PRODUCTS ─── */
+  .products {
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(200,121,65,0.05) 0%, transparent 50%),
+      var(--warm-gray);
+  }
+  .products-header { text-align: center; margin-bottom: 56px; }
+  .products-header .section-desc { margin: 0 auto; }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+  .product-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 40px 32px 32px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--deep-blue), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+  .product-card:hover::before { transform: scaleX(1); }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+  }
+  .product-card .p-icon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .product-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-blue);
+    margin-bottom: 10px;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact { background: var(--white); }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 48px;
+  }
+  .contact-card {
+    background: var(--deep-blue);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .contact-card-bottom {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .qr-box {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .qr-box canvas, .qr-box img { display: block; width: 100px; height: 100px; }
+  .qr-text { font-size: 0.8rem; opacity: 0.7; line-height: 1.6; }
+  .qr-text strong { display: block; font-size: 0.9rem; opacity: 1; }
+  .contact-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-item .c-icon {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .contact-item .c-info .c-label { font-size: 0.8rem; opacity: 0.7; margin-bottom: 2px; }
+  .contact-item .c-info .c-value { font-size: 1.1rem; font-weight: 600; }
+  .contact-phone {
+    font-size: 1.6rem !important;
+    letter-spacing: 0.02em;
+  }
+  .contact-map {
+    background: var(--warm-gray);
+    border-radius: 12px;
+    padding: 48px 40px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .contact-map h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--deep-blue);
+  }
+  .contact-map ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .contact-map ul li {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  .contact-map .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 32px 40px;
+    font-size: 0.85rem;
+    color: #999;
+    background: var(--warm-gray);
+    border-top: 1px solid var(--stone);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 64px 20px; }
+    .hero { padding: 100px 20px 60px; min-height: auto; }
+    .hero h1 { font-size: 2rem; }
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { padding: 32px 24px; min-height: auto; }
+    .product-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── FADE-IN ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-logo">天顺乐邦</div>
+  <ul class="nav-links">
+    <li><a href="#home">首页</a></li>
+    <li><a href="#about">关于我们</a></li>
+    <li><a href="#products">产品中心</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="home">
+  <div class="hero-content fade-in">
+    <span class="hero-tag">专业硅胶材料供应商</span>
+    <h1>品质<em>硅胶</em><br>匠心工艺材料</h1>
+    <p>天顺乐邦专注硅胶原料及工艺品材料领域，以稳定的品质和专业的服务，为制造企业与手工艺人提供一站式材料解决方案。</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">联系我们 →</a>
+      <a href="#products" class="btn-outline">查看产品</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">关于我们</div>
+      <h2 class="section-title">专注材料，服务制造</h2>
+      <p class="section-desc">天顺乐邦扎根硅胶及工艺品材料行业多年，致力于为客户提供品类齐全、品质可靠的材料产品。</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual fade-in">
+        <div class="about-icon-row">
+          <div class="about-icon-card">
+            <div class="icon">🔬</div>
+            <div class="label">品质保证</div>
+          </div>
+          <div class="about-icon-card">
+            <div class="icon">📦</div>
+            <div class="label">品类齐全</div>
+          </div>
+          <div class="about-icon-card">
+            <div class="icon">⚡</div>
+            <div class="label">快速响应</div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <ul class="feature-list">
+          <li>
+            <span class="check">✓</span>
+            <div>
+              <h4>丰富产品线</h4>
+              <p>涵盖工业硅胶、食品级硅胶、模具硅胶、工艺品专用材料等多个品类</p>
+            </div>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <div>
+              <h4>稳定供应链</h4>
+              <p>与多家优质厂商建立长期合作，确保货源充足、品质稳定</p>
+            </div>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <div>
+              <h4>专业服务团队</h4>
+              <p>提供材料选型建议、使用指导及售后支持，降低客户试错成本</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PRODUCTS ═══════ -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="products-header fade-in">
+      <div class="section-label">产品中心</div>
+      <h2 class="section-title">核心产品类别</h2>
+      <p class="section-desc">以下为天顺乐邦主要经营方向，具体规格及价格欢迎来电咨询。</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card fade-in">
+        <span class="p-icon">🫧</span>
+        <h3>工业硅胶</h3>
+        <p>高强度、耐高温工业级硅胶材料，适用于密封、绝缘、减震等多种工业场景。</p>
+      </div>
+      <div class="product-card fade-in">
+        <span class="p-icon">🍽️</span>
+        <h3>食品级硅胶</h3>
+        <p>通过食品接触安全认证，可用于烘焙模具、餐具、食品包装等卫生健康领域。</p>
+      </div>
+      <div class="product-card fade-in">
+        <span class="p-icon">🏗️</span>
+        <h3>模具硅胶</h3>
+        <p>缩合型、加成型模具硅胶，适用于石膏、水泥、树脂等材料的模具制作。</p>
+      </div>
+      <div class="product-card fade-in">
+        <span class="p-icon">🎨</span>
+        <h3>工艺品材料</h3>
+        <p>水晶滴胶、AB胶、色精色膏、固化剂等手工艺及工艺品生产配套材料。</p>
+      </div>
+      <div class="product-card fade-in">
+        <span class="p-icon">🧪</span>
+        <h3>电子灌封胶</h3>
+        <p>LED电源、传感器等电子元器件的灌封保护，绝缘防水抗震性能优异。</p>
+      </div>
+      <div class="product-card fade-in">
+        <span class="p-icon">🛠️</span>
+        <h3>辅助材料</h3>
+        <p>脱模剂、粘接剂、色浆、硅油等硅胶加工配套辅料，一站式采购更省心。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CONTACT ═══════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">联系我们</div>
+      <h2 class="section-title">欢迎来电咨询</h2>
+      <p class="section-desc">无论批量采购还是技术咨询，我们都会及时响应。</p>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-card fade-in">
+        <div>
+          <h3>天顺乐邦</h3>
+          <p style="opacity:0.7;">硅胶及工艺品材料供应商</p>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">👤</div>
+          <div class="c-info">
+            <div class="c-label">联系人</div>
+            <div class="c-value">杨益坤</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="c-icon">📞</div>
+          <div class="c-info">
+            <div class="c-label">联系电话</div>
+            <div class="c-value contact-phone">13365960188</div>
+          </div>
+        </div>
+        <div class="contact-card-bottom">
+          <div class="qr-box" id="qrBox"></div>
+          <div class="qr-text">
+            <strong>扫码访问官网</strong>
+            手机扫一扫<br>即可查看网页
+          </div>
+        </div>
+      </div>
+      <div class="contact-map fade-in">
+        <h3>为什么选择我们？</h3>
+        <ul>
+          <li><span class="dot"></span>多年行业经验，了解各类应用场景需求</li>
+          <li><span class="dot"></span>一手货源，减少中间环节，让利客户</li>
+          <li><span class="dot"></span>快速响应询价与订单，发货及时</li>
+          <li><span class="dot"></span>支持样品试用，先试后买更放心</li>
+          <li><span class="dot"></span>技术咨询与售后支持全程跟进</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 天顺乐邦 版权所有
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+</script>
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Trigger visible for elements already in view on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  });
+
+  // Generate QR code pointing to current page URL
+  (function() {
+    var url = window.location.href;
+    // If opened locally, use a generic domain so the QR code is still useful
+    if (url.startsWith('file://')) {
+      url = 'https://example.com/天顺乐邦'; // placeholder — replace after deployment
+    }
+    var box = document.getElementById('qrBox');
+    if (box && typeof QRCode !== 'undefined') {
+      new QRCode(box, {
+        text: url,
+        width: 100,
+        height: 100,
+        colorDark: '#1e3a5f',
+        colorLight: '#ffffff'
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
